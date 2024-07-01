@@ -2,10 +2,11 @@ from fastapi import FastAPI, status, HTTPException
 from src.queries.balance import Balance as balance_query
 from src.use_cases import use_case_handler
 from src.exceptions.AccountNotFound import AccountNotFound
+from src.exceptions.InvalidUseCaseType import InvalidUseCaseType
 
 app = FastAPI()
 
-@app.get("/balance/")
+@app.get("/balance")
 async def get_balance(account_id: int):
     try:
         balance = balance_query.get_balance(account_id)
@@ -19,3 +20,5 @@ async def register(command: dict):
         return use_case_handler.handle(command)
     except AccountNotFound as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+    except InvalidUseCaseType as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
