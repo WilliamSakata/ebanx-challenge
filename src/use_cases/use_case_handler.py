@@ -2,7 +2,6 @@ from src.dtos.deposit_comand import DepositCommand
 from src.use_cases import deposit
 
 def handle(payload: dict):
-    print(payload)
     if (payload['type'] == 'deposit'):
         command = DepositCommand.build(payload)
         account = deposit.execute(command)
