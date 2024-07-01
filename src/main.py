@@ -4,10 +4,6 @@ from src.exceptions.AccountNotFound import AccountNotFound
 
 app = FastAPI()
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World!"}
-
 @app.post("/event", status_code=status.HTTP_201_CREATED)
 async def register(command: dict):
     try:
