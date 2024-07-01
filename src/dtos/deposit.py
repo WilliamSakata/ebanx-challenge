@@ -1,10 +1,11 @@
 from src.entities.Account import account
+from src.dtos import Dtos
 
-class DepositCommand:
-    account_id = 0
-    amount = 0.0
+class DepositCommand(Dtos):
+    account_id: int
+    amount: float
 
-    def __init__(self, amount: float, account_id: int):
+    def __init__(self, account_id: int, amount: float):
         self.amount = amount
         self.account_id = account_id
 

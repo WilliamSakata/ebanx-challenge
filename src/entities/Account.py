@@ -1,6 +1,7 @@
+
 class account:
-    id = 0
-    balance = 0.0
+    id: int
+    balance: float
     
     def __init__(self, id, balance):
         self.id = id
