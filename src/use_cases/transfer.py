@@ -10,11 +10,15 @@ class Transfer(UseCase):
         origin_account = repository.find(command.origin)
         destination_account = repository.find(command.destination)
 
-        if (origin_account is None or destination_account is None):
+        if (origin_account is None):
             raise AccountNotFound()
         
-        new_balance_origin = float(origin_account.balance) - float(command.amount)
-        new_balance_destination = float(destination_account.balance) + float(command.amount)
+        if (destination_account is None):
+            destination_account = account(command.destination, 0)
+            repository.save(destination_account)
+
+        new_balance_origin = int(origin_account.balance) - int(command.amount)
+        new_balance_destination = int(destination_account.balance) + int(command.amount)
 
         new_origin = account(origin_account.id, new_balance_origin)
         new_destination = account(destination_account.id, new_balance_destination)

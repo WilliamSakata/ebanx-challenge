@@ -5,7 +5,6 @@ from src.dtos.deposit import DepositCommand
 from src.dtos.transfer import TransferCommand
 from src.dtos.withdraw import WithdrawCommand
 from src.exceptions.InvalidUseCaseType import InvalidUseCaseType
-import json
 
 def handle(payload: dict):
     if (payload['type'] == 'deposit'):

@@ -14,3 +14,7 @@ def find(account_id) -> Optional[account]:
 def save(account: account):
     accounts[account.id] = account
     return
+
+def reset():
+    accounts.clear()
+    return
