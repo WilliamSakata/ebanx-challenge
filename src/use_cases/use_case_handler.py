@@ -1,15 +1,21 @@
-from src.dtos.deposit_comand import DepositCommand
-from src.use_cases import deposit
+from src.use_cases.deposit import Deposit
+from src.use_cases.withdraw import Withdraw
+from src.dtos.deposit import DepositCommand
+from src.dtos.withdraw import WithdrawCommand
 
 def handle(payload: dict):
     if (payload['type'] == 'deposit'):
         command = DepositCommand.build(payload)
-        account = deposit.execute(command)
+        account = Deposit.execute(command)
 
         return {"destination": {"id": account.id, "balance": account.balance}}
     
     if (payload['type'] == 'withdraw'):
-        return {"message": "Withdraw received!"}
+        command = WithdrawCommand.build(payload)
+
+        account = Withdraw.execute(command)
+
+        return {"origin": {"id": account.id, "balance": account.balance}}
     
     if (payload['type'] == 'transfer'):
         return {"message": "Transfer received!"}
